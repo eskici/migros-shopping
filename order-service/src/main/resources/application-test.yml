@@ -1,0 +1,20 @@
+server:
+  port: 8083
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  application:
+    name: order-service-test
+  h2:
+    console:
+      enabled: true
+      path : /h2
+  cloud:
+    config:
+      discovery:
+        enabled: true
+
