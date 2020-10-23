@@ -21,7 +21,7 @@ import javax.validation.Valid;
 public class OrderController {
 
     @Autowired
-    private OrderService orderService;
+    OrderService orderService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<OrderDto> create(@Valid @RequestBody OrderDto createRequest) throws Exception {

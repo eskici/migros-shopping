@@ -23,7 +23,7 @@ public class OrderProductsConverter {
         productsOfOrder.setPrice(orderProductsDto.getPrice());
         productsOfOrder.setProductId(orderProductsDto.getProductId());
         productsOfOrder.setQuantity(orderProductsDto.getQuantity());
-        productsOfOrder.setProductName(getProductName(orderProductsDto.getId()));
+        productsOfOrder.setProductName(findProductName(orderProductsDto.getProductId()));
         return productsOfOrder;
     }
 
@@ -37,7 +37,7 @@ public class OrderProductsConverter {
         return orderProductsDto;
     }
 
-    private String getProductName(Long productId) throws BusinessException {
+    private String findProductName(Long productId) throws BusinessException {
         ResponseEntity<ProductDto> productResponse = productService.get(productId);
         ProductDto productDto = productResponse.getBody();
 

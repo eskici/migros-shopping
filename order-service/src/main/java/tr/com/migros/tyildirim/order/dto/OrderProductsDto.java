@@ -1,7 +1,6 @@
 package tr.com.migros.tyildirim.order.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -10,6 +9,8 @@ import java.math.BigDecimal;
  */
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderProductsDto {
 
     private Long id;

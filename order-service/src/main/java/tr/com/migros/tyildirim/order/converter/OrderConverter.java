@@ -1,5 +1,6 @@
 package tr.com.migros.tyildirim.order.converter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import tr.com.migros.tyildirim.order.restclient.CustomerServiceProxy;
  * @author Taner YILDIRIM
  */
 @Component
+@Slf4j
 public class OrderConverter {
 
     @Autowired
@@ -35,7 +37,7 @@ public class OrderConverter {
                 poEntity.setOrder(orderEntity);
                 orderEntity.getProductsOfOrder().add(poEntity);
             } catch (BusinessException e) {
-                e.printStackTrace();
+                log.error("An error occured ", e);
             }
         });
 

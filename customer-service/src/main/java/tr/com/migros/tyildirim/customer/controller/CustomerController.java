@@ -16,7 +16,7 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Customer> get(@PathVariable Long id) {
-        Customer product = new Customer(id , "Taner Yıldırım");
-        return ResponseEntity.ok(product);
+        Customer customer = new Customer(id , "Taner Yıldırım");
+        return ResponseEntity.ok(customer);
     }
 }
