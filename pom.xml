@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>config-server</module>
+        <module>eureka-server</module>
         <module>customer-service</module>
         <module>product-service</module>
         <module>order-service</module>

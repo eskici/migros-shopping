@@ -1,0 +1,66 @@
+version: '3'
+services:
+  eureka-server:
+    image: tr.com.migros.tyildirim/microservice-docker-eureka-server:0.0.1-SNAPSHOT
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    networks:
+      - servicenet
+    ports:
+      - 8761:8761
+  customer-service:
+    build:
+      context: ./customer-service
+      dockerfile: Dockerfile
+    image: tr.com.migros.tyildirim/microservice-docker-customer-service:0.0.1-SNAPSHOT
+    networks:
+      - servicenet
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-server:8761/eureka
+    depends_on:
+      - eureka-server
+    expose:
+      - 8089
+    ports:
+      - 8089:8089
+  product-service:
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    image: tr.com.migros.tyildirim/microservice-docker-product-service:0.0.1-SNAPSHOT
+    environment:
+      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-server:8761/eureka
+    depends_on:
+      - eureka-server
+    expose:
+      - 8084
+    ports:
+      - 8084:8084
+  order-service:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    image: tr.com.migros.tyildirim/microservice-docker-order-service:0.0.1-SNAPSHOT
+    networks:
+      - servicenet
+    depends_on:
+      - customer-service
+      - product-service
+      - eureka-server
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-server:8761/eureka
+        -DDB_URL=jdbc:h2:mem:testdb
+        -DDB_USER=sa
+        -DDB_PASSWORD=
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+networks:
+  servicenet:
+    driver: bridge
